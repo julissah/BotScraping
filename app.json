@@ -1,5 +1,5 @@
 $(document).ready(function() {
-var rootRef = new Firebase('https://botmarket1-9e67e.firebaseio.com/soy_una_tabla_nueva3');
+var rootRef = new Firebase('https://roster-jugadores-16ef1.firebaseio.com/');
 
     rootRef.on("value", function(snapshot) {
         //console.log(snapshot.val());
