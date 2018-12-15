@@ -1,0 +1,50 @@
+$(document).ready(function() {
+var rootRef = new Firebase('https://botmarket1-9e67e.firebaseio.com/soy_una_tabla_nueva3');
+
+    rootRef.on("value", function(snapshot) {
+        //console.log(snapshot.val());
+
+        var data = snapshot.val();
+
+        $("#playersTable tbody").empty();
+
+        var row = "";
+
+        for (player in snapshot.val()) {
+            //console.log(player, ',', data[player]);
+
+            row += "<tr>" +
+                "<td>" + data[player].Name + "</td>" +
+                "<td>" + data[player].marc + "</td>" +
+                "<td>" + data[player].preci + "</td>" +
+                "<td>" + "<img src="+'"'+data[player].foto+'"'+">" + "</td>" +
+                "<td>" + data[player].link + "</td>" +
+                "</tr>"
+        }
+
+        // console.log(row)
+
+        $("#playersTable tbody").append(row);
+        row = "";
+
+    }, function(errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+
+
+    //*** Sending data to firebase
+    $("#btnSend").click(function() {
+        var fullName = $("#fullName").val();
+        var marca = $("#marca").val();
+        var precio = $("#precio").val();
+
+        var dataPlayer = {
+            Name: fullName,
+            marc: marca,
+            preci: precio
+        }
+
+        rootRef.child(fullName).set(dataPlayer)
+
+    })
+});
